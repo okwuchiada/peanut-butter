@@ -4,8 +4,9 @@
 const inputStyle ={
     padding: "10px",
     borderRadius: "5px",
-    border: "1px solid #222",
-    margin: "5px",
+    border: "1px solid #333",
+    margin: "10px",
+    width: "400px"
 
 }
 

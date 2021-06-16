@@ -1,20 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: 'Ubuntu';
-    /* background: ; */
-}
-
-code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-}
-
-.container {
-    height: 100vh;
-    max-width: 90vw;
+    background: linear-gradient(#d3cce3, #e9e4f0);
     width: 100%;
+    color: #222;
+    height: 100vh;
+}
+
+.app {
     display: flex;
     flex-direction: column;
-    padding: 1em;
     justify-content: center;
     align-items: center;
+    padding: 1em;
+    height: 90%;
+    width: 100%;
+}
+
+.hero {
+    background: url(./images/photo-1.jpg);
 }

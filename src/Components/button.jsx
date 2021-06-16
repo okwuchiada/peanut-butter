@@ -1,17 +1,10 @@
-
- const buttonStyle ={
-     padding: "10px",
-     color: "#222",
-     margin: "5px",
-     border: "2px solid lightgreen",
-    backgroundColor: "#eee",
-    borderRadius: "5px"
- }
+import "../styles/button.css"
+ 
 
 
 function Button(props){
 return(
-    <button id={props.id} onClick={props.onClick} style={buttonStyle} > {props.children}</button>
+    <button id={props.id} onClick={props.onClick} className={props.class} > {props.children}</button>
 )
 }
 

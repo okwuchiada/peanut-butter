@@ -1,65 +1,78 @@
-import Button from "./button";
-import TextArea from './textarea';
-import Input from './input';
+import Button from "./button"
+import { useForm } from "react-hook-form"
+import "../styles/form.css"
 
 
 
-const formStyleObject={
-    backgroundColor: "lightgreen",
-    width: "100%",
-    maxWidth: "800px",
-    display: "flex",
-    flexDirection:"column",
-    justifyContent: "space between",
-    alignItems: "center"
 
+const formStyle  = {
+   
+    border: "1px solid #333",
+    padding: "10px",
+    margin: "10px",
+    borderRadius: "5px",
+    backgroundColor: "#eee",
+    maxWidth: "600px"
+    
 }
 
+const Form = ({addList}) =>{
+
+const { register, handleSubmit } = useForm();
+
+const todoFormHandler = ({ item, description}) =>{
 
 
-function Form({getValue, shopListItem, addItem}){
+    let newtodo={
+        userId:item,
+        completed: false,
+        title: item,
+        description: description
+    }
+    
+      
+      fetch(`https://user-manager-three.vercel.app/api/todo/create`, {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(newtodo)
+      })
+        .then(res => res.json())
+        .then(result => {
+          console.log(result)
+        })
+        .catch(err => {
+          console.log('this error occurred', err)
+        })
+    
+    addList(newtodo)
+    
+    
 
-    const inputHandler =(e)=>{
-        shopListItem=[]
-        e.preventDefault();
-        // Setting Values
-        const title = e.target.elements.title.value;
-        const quantity = e.target.elements.quantity.value;
-        const desc = e.target.elements.desc.value;
-
-        // Guard Function
-        if(title === "" || quantity==="" || desc===""){
-         return false
-            }
-
-            // Creating new object list in function
-            let newList = {
-                title: title,
-                 quantity: quantity,
-                 desc:desc
-            };
-            getValue(shopListItem.push(newList)) 
-
-            
-            // I got lost here
-
-          
-     }
-
+}
 
     return(
-        <form style={formStyleObject} onSubmit={inputHandler} >
-      <div className ="form">
-                <Input type="text" name="title" id="title"  placeholder="Item-Title" />
-                <Input type="number" name="quantity" id="quantity" placeholder="Quantity" />
-                
-            </div>
-            <TextArea  name="desc" id="desc" placeholder="Description" />
-            <Button id="enter-btn">Add List</Button>
-     
-     </form>
-     
+        <form onSubmit={handleSubmit(todoFormHandler)} style={formStyle}>
+            <input 
+            id="item" 
+            type="text" 
+            name="item"  
+            placeholder="To-do" 
+            {...register('item', {required: true})}
+           />
+           <input
+           id="qty"
+           type="text"
+           name="description"
+           placeholder="To-do Description"
+           {...register('description')}
+           />
+            <Button>+</Button>
+        </form>
     )
 }
+
+
 
 export default Form;
